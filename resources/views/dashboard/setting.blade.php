@@ -327,7 +327,7 @@
                             </thead>
                             <tbody> 
                                 <td>{{$setting['setting_name'] ?? 'Default Name'}}</td>
-                                @if($setting['active_status'] == 0)
+                                @if($setting['active_status'] == 2)
                                 <td><span class="badge badge-pill badge-danger">Non Active</span></td>
                             @elseif($setting['active_status'] == 1)
                                 <td><span class="badge badge-pill badge-success">Active</span></td>
@@ -347,7 +347,7 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              <form method="POST">
+                                              <form method="POST" action="{{route("edit")}}">
                                                @csrf
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Active Status</label>

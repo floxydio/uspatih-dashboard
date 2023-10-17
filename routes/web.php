@@ -13,3 +13,4 @@ Route::get("/setting", [SettingController::class, 'index'])->name("setting");
 Route::get("/user-redeem", [UserRedeemController::class, 'index'])->name("user_redeem");
 
 Route::post("/edit-setting", [SettingController::class, 'editSetting'])->name("edit");
+Route::post("/edit-redeem/{id}", [MainController::class, 'editRedeem'])->name("edit.redeem");

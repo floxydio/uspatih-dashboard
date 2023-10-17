@@ -315,10 +315,16 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Data Redeem</h1>
+                    <div class="row justify-content-between">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Data Redeem</h1>
+                        </div>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <button class="btn btn-success" data-toggle="modal"  data-target="#modalAdd">+ Add Redeem</button>
+                        </div>
                     </div>
-                    <div class="row">
+                    
+                   <div class="row">
                         <table class="table table-hover">
                             {{-- point,title,picture,quantity,description,active --}}
                             <thead>
@@ -359,7 +365,7 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              <form method="POST">
+                                              <form method="POST" action="{{route("edit.redeem", $item['id'])}}">
                                                @csrf
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Judul</label>
@@ -392,7 +398,7 @@
 
                                             <div style="margin-top: 20px">
                                             <div class="form-group">
-                                                <input required type="file" accept=".png, .jpg, .jpeg" class="form-control"  name="image" placeholder="Pick Image">
+                                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"  name="image" placeholder="Pick Image">
                                             </div>
                                             <div style="margin-top: 50px">
                                             <button  type="submit" class="btn btn-primary">Save changes</button>
@@ -411,7 +417,58 @@
                           </table>
                     </div>
 
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="POST">
+                               @csrf
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Judul</label>
+                                <input required type="text" class="form-control" name="title" placeholder="Masukkan Judul...">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Quantity</label>
+                                <input type="text" class="form-control" name="quantity" placeholder="Masukkan Quantity...">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Point</label>
+                                <input type="text" class="form-control" name="point" placeholder="Masukkan Point...">
+                            </div>
 
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Active</label>
+                                <input  type="text" class="form-control" name="active" placeholder="Masukkan Status Active...">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Description</label>
+                                <input type="text" class="form-control" name="description" placeholder="Masukkan Deskripsi...">
+                            </div>
+
+                            <div style="margin-top: 20px">
+                            <div class="form-group">
+                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"  name="image" placeholder="Pick Image">
+                            </div>
+                            <div style="margin-top: 50px">
+                            <button  type="submit" class="btn btn-primary">Save changes</button>
+                            </form>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+           
+                    
+                   
 
 
                 </div>

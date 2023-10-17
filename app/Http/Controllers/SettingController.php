@@ -28,14 +28,11 @@ class SettingController extends Controller {
         "image" => $image->getClientOriginalExtension()
       ];
     }
-   
-
-    $response = Http::put("$getEnv/edit-setting/REDEEM_SETTING",$data);
-
+   $response = Http::withHeaders([
+    'Content-Type' => 'application/json',
+])->put("$getEnv/edit-setting/REDEEM_SETTING",$data);
   if ($response->successful()) {
-      return redirect()->back()->with('message', 'Image updated successfully');
-  } else {
-      return redirect()->back()->with('error', 'Failed to update image');
-  }
+      return redirect("dashboard/setting");
+  } 
    }
 }
