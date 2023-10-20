@@ -326,15 +326,15 @@
                               </tr>
                             </thead>
                             <tbody> 
-                                <td>{{$setting['setting_name'] ?? 'Default Name'}}</td>
-                                @if($setting['active_status'] == 2)
+                                <td>{{$setting->setting_name ?? 'Default Name'}}</td>
+                                @if($setting->active_status == 0)
                                 <td><span class="badge badge-pill badge-danger">Non Active</span></td>
-                            @elseif($setting['active_status'] == 1)
+                            @elseif($setting->active_status == 1)
                                 <td><span class="badge badge-pill badge-success">Active</span></td>
                             @else
                                 <td>Unknown Status</td> <!-- or any other default/fallback behavior you want -->
                             @endif
-                                <td>{{$setting['image_path']}}</td>
+                                <td>{{$setting->image_path}}</td>
                                 <td> 
                                     <button  class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">Edit</button>
                                     <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -351,14 +351,14 @@
                                                @csrf
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Active Status</label>
-                                                <input type="text" class="form-control" value="{{old("active_status",$setting['active_status'])}}" name="active_status" placeholder="Masukkan Status Active...">
+                                                <input type="text" class="form-control" value="{{old("active_status",$setting->active_status)}}" name="active_status" placeholder="Masukkan Status Active...">
                                                 <small id="emailHelp" class="form-text text-muted">0 -> Tidak Aktif, 1 -> Aktif</small>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Image Redeem</label>
 
-                                               <img id="img" height="400" src="{{ old('image_path', $setting['image_path']) ? 'http://103.146.202.121:2000/img-redeem/' . $setting['image_path'] : '' }}" alt="Image">
+                                               <img id="img" height="400" src="{{ old('image_path', $setting->image_path) ? 'http://localhost:8000/uploads/' . $setting->image_path : '' }}" alt="Image">
                                                 
                                             </div>
 

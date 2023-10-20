@@ -14,3 +14,5 @@ Route::get("/user-redeem", [UserRedeemController::class, 'index'])->name("user_r
 
 Route::post("/edit-setting", [SettingController::class, 'editSetting'])->name("edit");
 Route::post("/edit-redeem/{id}", [MainController::class, 'editRedeem'])->name("edit.redeem");
+Route::post("/create-redeem", [MainController::class, 'createRedeem'])->name("create.redeem");
+Route::get("/delete-redeem/{id}", [MainController::class, 'deleteRedeem'])->name("delete.redeem");

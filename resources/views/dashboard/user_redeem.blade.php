@@ -318,21 +318,17 @@
                                 <th scope="col">User ID</th>
                                 <th scope="col">Point Redeem </th> 
                                 <th scope="col">Nama Produk</th>
-                                <th scope="col">Redeem At</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tanggal Redeem</th>
                               </tr>
                             </thead>
                             @foreach($userredeem as $key => $item)
                             <tbody>
                                 <td>{{$key + 1}}</td>
-                                <td>{{$item['user_id']}}</td>
-                                <td>{{$item['point']}}</td>
-                                <td>{{$item['title']}}</td>
-                                <td>{{\Carbon\Carbon::parse($item['redeemAt'])->format('l, jS F Y h:i:s A')}}</td>
-                                <td> 
-                                    <button type="button" class="btn btn-primary btn-sm">Edit Data</button>
-
-                                </td>
+                                <td>{{$item->user_id}}</td>
+                                <td>{{$item->point}}</td>
+                                <td>{{$item->title}}</td>
+                                <td>{{\Carbon\Carbon::parse($item->redeemAt)->format('l, jS F Y h:i:s A')}}</td>
+                            
                              
                             </tbody>
                             @endforeach

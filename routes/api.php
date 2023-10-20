@@ -46,7 +46,7 @@ Route::get("/redeem-point/detail/{id}",function(Request $request, $id) {
 });
 
 Route::post("/redeem-point/create", function(Request $request) {
-    $upload_path = base_path('./');
+    $upload_path = base_path('./public');
     $extension = $request->file("image")->getClientOriginalExtension();
     $fileNameToStore = 'redeem_'.uniqid().'_'.time().'.'.$extension;
     $dbPostRedeem = DB::table("redeem_point")->insert([
@@ -81,7 +81,7 @@ Route::put("/redeem-point/update/{id}", function(Request $request,$id) {
         return response()->json("Id must be integer", 400);
     } else {
         if($request->file("image") != null) {
-            $upload_path = base_path('./');
+            $upload_path = base_path('./public');
             $extension = $request->file("image")->getClientOriginalExtension();
             $fileNameToStore = 'redeem_'.uniqid().'_'.time().'.'.$extension;
             DB::table("redeem_point")->where("id", $id)->update([
@@ -219,7 +219,7 @@ Route::get("/redeem-setting", function(Request $request) {
 Route::put("/redeem-setting/update", function(Request $request) {
     // 0 Turn Off, 1 Turn ON
     if($request->file("image") != null) {
-        $upload_path = base_path('./');
+        $upload_path = base_path('./public');
         $extension = $request->file("image")->getClientOriginalExtension();
         $fileNameToStore = 'setting_redeem_'.uniqid().'_'.time().'.'.$extension;
         DB::table("redeem_point")->where("setting_name", "REDEEM_SETTING")->update([

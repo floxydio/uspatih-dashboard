@@ -342,19 +342,22 @@
                             @foreach($redeem as $key => $item)
                             <tbody> 
                                 <td>{{$key + 1}}</td>
-                                <td>{{$item['title']}}</td>
-                                <td>{{$item['quantity']}}</td>
-                                <td>{{$item['point']}}</td>
-                                @if($item['active'] == '1')
+                                <td>{{$item->title}}</td>
+                                <td>{{$item->quantity}}</td>
+                                <td>{{$item->point}}</td>
+                                @if($item->active == 1)
                                 <td><span class="badge badge-pill badge-danger">Non Active</span>
                                 </td>
-                                @endif
+                                @else
                                 <td><span class="badge badge-pill badge-success">Active</span>
+                                @endif
+                               
                                 </td>
-                                <td class="shorten-text">{{$item['description']}}</td>
-                                <td>{{ \Carbon\Carbon::parse($item['createdAt'])->format('l, jS F Y h:i:s A') }}</td>
+                                <td class="shorten-text">{{$item->description}}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->createdAt)->format('l, jS F Y h:i:s A') }}</td>
                                 <td> 
                                     <button  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEdit">Edit Data</button>
+                                    <a class="btn btn-danger btn-sm" href="{{route("delete.redeem", $item->id)}}" >Delete</a>
                                     <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                           <div class="modal-content">
@@ -365,34 +368,34 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              <form method="POST" action="{{route("edit.redeem", $item['id'])}}">
+                                              <form method="POST" action="{{route("edit.redeem", $item->id)}}">
                                                @csrf
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Judul</label>
-                                                <input required type="text" class="form-control" value="{{old("title",$item['title'])}}" name="title" placeholder="Masukkan Judul...">
+                                                <input required type="text" class="form-control" value="{{old("title",$item->title)}}" name="title" placeholder="Masukkan Judul...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Quantity</label>
-                                                <input type="text" class="form-control" value="{{old("quantity",$item['quantity'])}}" name="quantity" placeholder="Masukkan Quantity...">
+                                                <input type="text" class="form-control" value="{{old("quantity",$item->quantity)}}" name="quantity" placeholder="Masukkan Quantity...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Point</label>
-                                                <input type="text" class="form-control" value="{{old("point",$item['point'])}}" name="point" placeholder="Masukkan Point...">
+                                                <input type="text" class="form-control" value="{{old("point",$item->point)}}" name="point" placeholder="Masukkan Point...">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Active</label>
-                                                <input  type="text" class="form-control" value="{{old("active",$item['active'])}}" name="active" placeholder="Masukkan Status Active...">
+                                                <input  type="text" class="form-control" value="{{old("active",$item->active)}}" name="active" placeholder="Masukkan Status Active...">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Description</label>
-                                                <input type="text" class="form-control" value="{{old("description",$item['description'])}}" name="description" placeholder="Masukkan Deskripsi...">
+                                                <input type="text" class="form-control" value="{{old("description",$item->description)}}" name="description" placeholder="Masukkan Deskripsi...">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Image Redeem</label>
-                                               <img id="img" src="{{ old('picture', $item['picture']) ? 'http://103.146.202.121:2000/img-redeem/' . $item['picture'] : '' }}" alt="Image">
+                                               <img id="img" src="{{ old('picture', $item->picture) ? 'http://localhost:8000/uploads/' . $item->picture : '' }}" alt="Image">
 
                                             </div>
 
@@ -419,49 +422,47 @@
 
                     <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <form method="POST">
-                               @csrf
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Judul</label>
-                                <input required type="text" class="form-control" name="title" placeholder="Masukkan Judul...">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Quantity</label>
-                                <input type="text" class="form-control" name="quantity" placeholder="Masukkan Quantity...">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Point</label>
-                                <input type="text" class="form-control" name="point" placeholder="Masukkan Point...">
-                            </div>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form method="POST" action="{{route("create.redeem")}}" enctype="multipart/form-data">
+                                   @csrf
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Judul</label>
+                                    <input required type="text" class="form-control" name="title" placeholder="Masukkan Judul...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Quantity</label>
+                                    <input type="text" class="form-control"  name="quantity" placeholder="Masukkan Quantity...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Point</label>
+                                    <input type="text" class="form-control"  name="point" placeholder="Masukkan Point...">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Active</label>
-                                <input  type="text" class="form-control" name="active" placeholder="Masukkan Status Active...">
-                            </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Active</label>
+                                    <input  type="text" class="form-control"  name="active_status" placeholder="Masukkan Status Active...">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Description</label>
-                                <input type="text" class="form-control" name="description" placeholder="Masukkan Deskripsi...">
-                            </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Description</label>
+                                    <input type="text" class="form-control"  name="description" placeholder="Masukkan Deskripsi...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" accept=".png, .jpg, .jpeg" class="form-control"  name="image" placeholder="Pick Image">
+                                </div>
+                                <div style="margin-top: 50px">
+                                <button  type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                                </div>
 
-                            <div style="margin-top: 20px">
-                            <div class="form-group">
-                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"  name="image" placeholder="Pick Image">
-                            </div>
-                            <div style="margin-top: 50px">
-                            <button  type="submit" class="btn btn-primary">Save changes</button>
-                            </form>
-                            </div>
-
-                          </div>
+                              </div>
                         </div>
                       </div>
 
