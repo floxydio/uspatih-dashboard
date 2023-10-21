@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class SettingController extends Controller {
    public function index() {
+    $isCookieAdmin = Cookie::get("admin");
+
+    if($isCookieAdmin == null) {
+        return redirect("/login");
+    } else {
       $dbRes = DB::table("redeem_setting")->get();
       $setting = $dbRes[0];
         return view("dashboard/setting", compact("setting"));
-   }
+    }
+  }
    
 
    public function editSetting(Request $request) {

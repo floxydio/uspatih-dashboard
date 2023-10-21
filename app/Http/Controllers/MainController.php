@@ -10,10 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller {
    public function index() {
-      $dbRes = DB::table("redeem_point")->orderBy("id", "desc")->get();
-      $redeem = $dbRes;
-      
-        return view("dashboard/main", compact('redeem'));
+      $isCookieAdmin = Cookie::get("admin");
+
+      if($isCookieAdmin == null) {
+         return redirect("/login");
+      } else {
+         $dbRes = DB::table("redeem_point")->orderBy("id", "desc")->get();
+         $redeem = $dbRes;
+         
+           return view("dashboard/main", compact('redeem'));
+      }
    }
 
    public function editRedeem($id, Request $request) {
